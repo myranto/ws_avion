@@ -62,7 +62,8 @@ public class kilometrageController {
     public ResponseEntity<ToJsonData> getKilomById(@PathVariable int id) {
         System.out.println("number one");
         try {
-            ArrayList<Kilometrage> list = new Kilometrage().selectAllById(id);
+            List<Kilometrage> list = kilometrageRepository.findAllByIdavion(id);
+//            ArrayList<Kilometrage> list = new Kilometrage().selectAllById(id);
 //            List<Kilometrage> kilometrage = kilometrageRepository.findAllByIdvoitureOrderByDateAsc(id);
 //            List<Kilometrage> v = kilometrageRepository.searchKilometrageByIdvoiture(id);
             for (Kilometrage t:list) {

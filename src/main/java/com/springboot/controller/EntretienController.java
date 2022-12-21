@@ -3,6 +3,7 @@ package com.springboot.controller;
 import com.springboot.FormatToJson.ToJsonData;
 import com.springboot.model.Detail_Entretien;
 import com.springboot.model.Entretien;
+import com.springboot.repository.DetailEntretienRepository;
 import com.springboot.repository.EntretienRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,8 +18,14 @@ import java.util.List;
 @CrossOrigin
 public class EntretienController {
 
-    @Autowired
-    private EntretienRepository EntretienRepository;
+    private final EntretienRepository EntretienRepository;
+    private final DetailEntretienRepository rep;
+
+    public EntretienController(EntretienRepository EntretienRepository, DetailEntretienRepository rep) {
+        super();
+        this.EntretienRepository = EntretienRepository;
+        this.rep = rep;
+    }
 
     @GetMapping
     public ResponseEntity<ToJsonData> getAllEntretien() {
@@ -28,7 +35,7 @@ public class EntretienController {
     @GetMapping("/detail")
     public ResponseEntity<ToJsonData> getDetail(@RequestParam(name = "identretien") int identretien){
         try {
-            ToJsonData<List<Detail_Entretien>> entretien = new ToJsonData<>(new Detail_Entretien().selectByIdEntretien(identretien));
+            ToJsonData<List<Detail_Entretien>> entretien = new ToJsonData<>(rep.find(identretien));
             return new ResponseEntity<>(entretien, HttpStatus.OK);
         }catch (Exception e){
             ToJsonData<String> error = new ToJsonData<>(e.getMessage());

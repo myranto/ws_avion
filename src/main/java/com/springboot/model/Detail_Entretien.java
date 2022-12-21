@@ -1,19 +1,27 @@
 package com.springboot.model;
 
-import com.springboot.Connex.Connexion;
 import com.springboot.sgbd.DAO.ObjectBDD;
 import com.springboot.sgbd.inter.KeyAnnotation;
 import com.springboot.sgbd.inter.TableAnnotation;
+import lombok.Data;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.ArrayList;
 
-@TableAnnotation(nameTable = "detail_entretien")
+@Data
+@Entity
+@Table(name = "Detail_Entretien")
 public class Detail_Entretien extends ObjectBDD {
     @KeyAnnotation
+    @Id
+    @Column(name = "identretien",nullable = false)
     private int identretien;
-    @KeyAnnotation
+    @Column(name = "libelle",nullable = false)
     private String libelle;
-    @KeyAnnotation
+    @Column(name = "depense",nullable = false)
     private int depense;
 
     public int getIdentretien() {
@@ -48,9 +56,7 @@ public class Detail_Entretien extends ObjectBDD {
         this.libelle = libelle;
         this.depense = depense;
     }
-    public ArrayList<Detail_Entretien> selectByIdEntretien(int id) throws Exception {
-        return SelectAllByQuery(Connexion.getConnection(),"select * from detail_entretien where identretien="+id);
-    }
+
 
     @Override
     protected void colonneLiaison(int idliaison) {

@@ -1,5 +1,4 @@
 package com.springboot.model;
-import com.springboot.Connex.Connexion;
 import com.springboot.sgbd.DAO.ObjectBDD;
 import com.springboot.sgbd.inter.KeyAnnotation;
 import com.springboot.sgbd.inter.TableAnnotation;
@@ -53,10 +52,7 @@ public class Kilometrage extends ObjectBDD {
     public void setFin(double fin) {
         this.fin = fin;
     }
-    public ArrayList<Kilometrage> selectAllById(int idavion) throws Exception {
-        String sql = "select * from kilometrage where idavion="+idavion;
-        return SelectAllByQuery(Connexion.getConnection(),sql);
-    }
+
 
     @Override
     protected void colonneLiaison(int idliaison) {

@@ -1,25 +1,41 @@
 package com.springboot.model;
 
-import com.springboot.Connex.Connexion;
 import com.springboot.sgbd.DAO.ObjectBDD;
 import com.springboot.sgbd.inter.KeyAnnotation;
 import com.springboot.sgbd.inter.TableAnnotation;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import javax.persistence.*;
 import java.sql.Date;
 import java.util.ArrayList;
 
-@TableAnnotation(nameTable = "assurance")
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "Assurance")
 public class Assurance extends ObjectBDD {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
     @Override
     protected void colonneLiaison(int idliaison) {}
-    @KeyAnnotation
+    @Column(name = "date_assurance",nullable = false)
     private Date date_assurance;
-    @KeyAnnotation
+    @Column(name = "datedebut",nullable = false)
     private Date datedebut;
 
-    @KeyAnnotation
+
+    @Column(name = "a_payer",nullable = false)
     private double a_payer;
-    @KeyAnnotation
+
+    @Column(name = "idavion",nullable = false)
     private int idavion;
 
     public int getIdavion() {
@@ -54,15 +70,13 @@ public class Assurance extends ObjectBDD {
         this.a_payer = a_payer;
     }
 
-    public void saveAll() throws Exception {
-        super.saveAll(Connexion.getConnection());
+
+    public void setId(int id) {
+        this.id = id;
     }
-    public ArrayList<Assurance> selectAll() throws Exception {
-        return super.SelectAll(Connexion.getConnection());
-    }
-    public ArrayList<Assurance> selectAllByIdAvionExpiration(int mois) throws Exception {
-        String sql = "select * from assurance where date_part('month',date_assurance) = (SELECT date_part('month',current_date + interval '"+mois+" month'))";
-        System.out.println(sql);
-        return super.SelectAllByQuery(Connexion.getConnection(),sql);
+
+
+    public int getId() {
+        return id;
     }
 }

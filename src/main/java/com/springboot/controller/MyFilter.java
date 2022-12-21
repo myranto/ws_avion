@@ -3,6 +3,8 @@ package com.springboot.controller;
 import com.google.gson.Gson;
 import com.springboot.FormatToJson.ErrorCode;
 import com.springboot.security.Token;
+import com.springboot.service.TokenService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +23,11 @@ import java.io.IOException;
 @Component
 @Order(1)
 public class MyFilter implements Filter {
+    private final TokenService serve;
+
+    public MyFilter(TokenService serve) {
+        this.serve = serve;
+    }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
@@ -33,7 +40,7 @@ public class MyFilter implements Filter {
         Token tok = new Token(idu,token);
         try {
             if ((!action.equals("login"))&&(idu!=0)) {
-                tok.checkTokens(token);
+                serve.checkTokens(token,idu);
             }
         }catch (Exception e){
             res.addHeader("Content-Type","application/json;charset=UTF-8");
