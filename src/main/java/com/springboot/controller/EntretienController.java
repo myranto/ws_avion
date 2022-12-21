@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/avion/entretien")
-@CrossOrigin
+@CrossOrigin(methods = {RequestMethod.DELETE,RequestMethod.GET,RequestMethod.OPTIONS,RequestMethod.POST,RequestMethod.PUT})
 public class EntretienController {
 
     private final EntretienRepository EntretienRepository;

@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/flotte/assurance")
-@CrossOrigin
+@CrossOrigin(methods = {RequestMethod.DELETE,RequestMethod.GET,RequestMethod.OPTIONS,RequestMethod.POST,RequestMethod.PUT})
 public class AssuranceController {
     private AssuranceRepository rep=null;
     public AssuranceController(AssuranceRepository rep) {

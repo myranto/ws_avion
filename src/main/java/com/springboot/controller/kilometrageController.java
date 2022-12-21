@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/flotte/kilometrage")
-@CrossOrigin
+@CrossOrigin(methods = {RequestMethod.DELETE,RequestMethod.GET,RequestMethod.OPTIONS,RequestMethod.POST,RequestMethod.PUT})
 public class kilometrageController {
 
     private  kilometrageRepository kilometrageRepository;
